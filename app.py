@@ -1,29 +1,32 @@
 import RPi.GPIO as GPIO
 import time
-from random import random as rand
+from random import randint
 
 class Main():
-	output_pins = [3,5,7,11,13]
+	output_pins = [3,5,7]
 	input_pins = []
-	current_led = 0
-	def __init__():
-		GPIO.setMode(GPIO.BOARD)
-		initLeds()
-		randomRoutine()
+	current_led = 3
+	def __init__(self):
+		GPIO.setmode(GPIO.BOARD)
+		self.initLeds()
+		self.randomRoutine()
 
 
-	def randomRoutine():
+	def randomRoutine(self):
 		while True:
-			GPIO.output(current_led, False)
-			current_led = rand(0, output_pins.length)
-			GPIO.output(current_led, True)
-			time.delay(2)
+			GPIO.output(self.current_led, False)
+			pos = randint(0, len(self.output_pins) - 1)
+			print pos
+			self.current_led = self.output_pins[pos]
+			GPIO.output(self.current_led, True)
+			time.sleep(0.05)
 			
 
-	def initLeds():	
+	def initLeds(self):	
 		# inicializar pins de salida
-		for i in range(0,output_pins):
-			GPIO.setup(output_pins[i],GPIO.OUT)
+		for i in range(0, len(self.output_pins)):
+			print("Inicializando led: {} ".format(self.output_pins[i]))
+			GPIO.setup(self.output_pins[i],GPIO.OUT)
 		
 
 
